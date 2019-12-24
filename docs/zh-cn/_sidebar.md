@@ -1,3 +1,5 @@
 * [首页](zh-cn/)
 * [查找算法](zh-cn/find)
 * [排序算法](zh-cn/sort)
+* [经典算法](zh-cn/classic)
+* [问题集一](zh-cn/question-one)

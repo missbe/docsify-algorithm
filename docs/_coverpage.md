@@ -9,4 +9,4 @@
 * 排序、查找、树、图
 
 [GitHub](https://github.com/docsifyjs/docsify/)
-[Get Started](/README)
+[Get Started](zh-cn/README)
