@@ -2,4 +2,5 @@
 * [查找算法](zh-cn/find/find-1)
 * [排序算法](zh-cn/sort/sort-1)
 * [经典算法](zh-cn/classic/classic-1)
-* [问题集一](zh-cn/question/question-1)
+* [leetcode-1](zh-cn/leetcode/leetcode-1)
+* [问题集合-1](zh-cn/question/question-1)
