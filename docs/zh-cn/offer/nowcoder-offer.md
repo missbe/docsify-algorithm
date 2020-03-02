@@ -1,7 +1,7 @@
 > PS:  [题目来源-牛客-剑指offer](https://www.nowcoder.com/ta/coding-interviews)
 <!-- TOC -->
 
-- [1.二维数组中的查找](#1二维数组中的查找)
+- [1. 	二维数组中的查找](#1-	二维数组中的查找)
 - [2.替换空格](#2替换空格)
 - [3.用两个栈实现队列](#3用两个栈实现队列)
 - [4.旋转数组的最小数字](#4旋转数组的最小数字)
@@ -19,6 +19,8 @@
 - [16.只出现一次的字符](#16只出现一次的字符)
 - [17.数组中出现超过一半的数字](#17数组中出现超过一半的数字)
 - [18.最小的K个数](#18最小的k个数)
+- [19.连续子数组的最大和](#19连续子数组的最大和)
+- [20.和为S的连续正数序列](#20和为s的连续正数序列)
 
 <!-- /TOC -->
 
@@ -899,4 +901,110 @@ public class Solution23 {
     }
 
 }
+```
+##### 19.连续子数组的最大和
+```java
+import java.util.Arrays;
+
+/**
+ * Copyright (c) 2020.
+ * Email: love1208tt@foxmail.com
+ * @author lyg  2020/3/2 下午5:07
+ * description:
+ * HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。
+ * 今天测试组开完会后,他又发话了:在古老的一维模式识别中,
+ * 常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。
+ * 但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？
+ * 例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。
+ * 给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)
+ **/
+
+public class Solution24 {
+    /**
+     * 链接：https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484?toCommentId=5350910
+     * 来源：牛客网
+     *
+     * dp[i]表示以元素array[i]结尾的最大连续子数组和.
+     * 以[-2,-3,4,-1,-2,1,5,-3]为例
+     * 可以发现,
+     * dp[0] = -2
+     * dp[1] = -3
+     * dp[2] = 4
+     * dp[3] = 3
+     * 以此类推,会发现
+     * dp[i] = max{dp[i-1]+array[i],array[i]}.
+     */
+    public int FindGreatestSumOfSubArray(int[] array) {
+        int[] dp = new int[array.length];
+        dp[0] = array[0];
+        for (int i = 1; i < array.length; i++) {
+            dp[i] = Math.max(dp[i - 1] + array[i], array[i]);
+        }
+        int max = dp[0];
+        for (int i = 1; i < dp.length; i++) {
+            if (dp[i] > max) {
+                max = dp[i];
+            }
+        }
+        return max;
+    }
+}
+
+```
+##### 20.和为S的连续正数序列
+```java
+import java.util.ArrayList;
+
+/**
+ * Copyright (c) 2020.
+ * Email: love1208tt@foxmail.com
+ * @author lyg  2020/3/2 下午5:24
+ * description:
+ * 小明很喜欢数学,有一天他在做数学作业时,要求计算出9~16的和,他马上就写出了正确答案是100。
+ * 但是他并不满足于此,他在想究竟有多少种连续的正数序列的和为100(至少包括两个数)。没多久,
+ * 他就得到另一组连续正数和为100的序列:18,19,20,21,22。现在把问题交给你,
+ * 你能不能也很快的找出所有和为S的连续正数序列? Good Luck!
+ * 输出描述:
+ * 输出所有和为S的连续正数序列。序列内按照从小至大的顺序，序列间按照开始数字从小到大的顺序
+ **/
+
+public class Solution25 {
+    /**
+     * 链接：https://www.nowcoder.com/questionTerminal/c451a3fd84b64cb19485dad758a55ebe?answerType=1&f=discussion
+     * 来源：牛客网
+     *
+     * 思路：
+     * 因为要求连续的数列和，所以这是一个等差数列，并且我们想到用双指针来做，slow，high。
+     * 1.等差数列：current（当前值）=(high-slow+1)(high+slow)/2
+     * 2.初始化slow=1和high=2.(因为考虑要覆盖到所有情况，所以赋值为两个较小的数)
+     * 3.只要满足slow<high,循环就可进行。
+     * 4.不断地比较current和slow
+     * 4.1.current==slow,即slow和high之间的数满足序列要求，所以遍历slow和high之间的所有数，存入一个数组。
+     * *之后slow++**（因为要求的所有的连续正数序列，所以要不断的右移）
+     * 4.2.current<slow,则表明当前值小于sum，需要high++，
+     * 4.3.current>slow,则表明当前值大于sum，需要减小当前值，即slow++；
+     */
+    public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        int low = 1, high = 2, cur;
+        while (low < high) {
+            //连续正数数列，等差公式
+            cur = (high - low + 1) * (low + high) / 2;
+            if (cur == sum) {
+                ArrayList<Integer> tmp = new ArrayList<>();
+                for (int i = low; i <= high; i++) {
+                    tmp.add(i);
+                }
+                res.add(tmp);
+                low++;
+            } else if (cur < sum) {
+                high++;
+            }else {
+                low++;
+            }
+        }
+        return res;
+    }
+}
+
 ```
