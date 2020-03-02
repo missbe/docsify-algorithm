@@ -3,5 +3,6 @@
 * [排序算法](zh-cn/sort/sort-1)
 * [经典算法](zh-cn/classic/classic-1)
 * [leetcode-1](zh-cn/leetcode/leetcode-1)
+* [leetcode-2](zh-cn/offer/leetcode-code.md)
 * [问题集合-1](zh-cn/question/question-1)
 * [nowcoder-剑指offer](zh-cn/offer/nowcoder-offer.md)
